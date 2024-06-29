@@ -1,0 +1,43 @@
+textarea {
+    min-height: 400px;
+}
+
+.email-item h5, .email-item h6, .email-item p {
+    margin: 5px 0; /* Ensure spacing between elements */
+  }
+
+.read{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between; /* Adjusts spacing between items */
+    gap: 10px;
+    border: 1px solid #ccc;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    flex: 1 0 200px; /* Flex properties to control size and growth */
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    margin: 10px 0;
+    background-color: #ccc;
+}
+
+.unread{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between; /* Adjusts spacing between items */
+    gap: 10px;
+    border: 1px solid #ccc;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    flex: 1 0 200px; /* Flex properties to control size and growth */
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    margin: 10px 0;
+    background-color: white;
+}
+
+#form-btn {
+    margin-top: 18px;
+}
