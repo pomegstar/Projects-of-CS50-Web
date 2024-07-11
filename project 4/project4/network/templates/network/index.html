@@ -1,0 +1,150 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <h3>{{ title }}</h3>
+
+    {% if pro %}
+        <div class="post">
+            <div class="lcd">
+                <h1>{{ pro.username }}</h1>
+                {% if user.is_authenticated and pro.id != user.id %}
+                    <input type="hidden" id="pidt" value="{{ pro.id }}">
+                    <button type="submit" class="btfr" id="btfrd">
+                        {% if isFollowing %}
+                            Unfollow
+                        {% else %}
+                            Follow
+                        {% endif %}
+                    </button>
+                {% endif %}
+            </div>
+            <div class="lcd">
+                <span class="fl" id="follower">Followers: {{ follower.count }}</span>
+                <span class="fl" id="following">Following: {{ following.count }}</span>
+            </div>
+        </div>
+    {% endif %}
+
+    {% for post in paginPost %}
+        <div class="post" id="post-{{ post.id }}">
+            <div class="text">
+                <strong><a href="{% url 'profile' post.poster.id %}">{{ post.poster }}</a></strong><br>
+                <p>{{ post.timestamp }}</p>
+            </div>
+            <div class="text" id="pst-{{ post.id }}">
+        <pre class="custom" id="pstpre-{{ post.id }}">{{ post }}</pre>
+            </div>
+            <div class="text" id="lkd-{{ post.id }}"><i class="fas fa-thumbs-up"></i> {{ post.like_count }}</div>
+            <div class="lcd">
+                {% if user.is_authenticated %}
+                    <input type="hidden" id="li-{{ post.id }}" value="{{ post.id }}">
+                    <button class="lc" id="unlike-{{ post.id }}">
+                        {% if post.id in liked %}
+                            Unlike
+                        {% else %}
+                            Like
+                        {% endif %}
+                    </button>
+                {% endif %}
+                {% if user.is_authenticated and post.poster.id == request.user.id %}
+                    <button class="lc" id="editbtn-{{ post.id }}">Edit</button>
+                    <input type="hidden" id="in-{{ post.id }}" value="{{ post.id }}">
+                    <button class="lc" id="savebtn-{{ post.id }}" style="display: none;">Save</button>
+                {% endif %}
+            </div>
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const unlike = document.querySelector('#unlike-{{ post.id }}');
+                const likedPost = document.querySelector('#li-{{ post.id }}').value;
+                const likeCount = document.querySelector('#lkd-{{ post.id }}');
+
+                unlike.addEventListener('click', function() {
+                    if (unlike.innerText == "Like") {
+                        fetch(`/liking/${likedPost}`, {
+                            method: 'PUT',
+                            body: JSON.stringify({
+                                like: true
+                            })
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                        // unlike.style.display = data.isliked ? "inline-block" : "none";
+                                likeCount.innerHTML = `<i class="fas fa-thumbs-up"></i> ${data.liked}`;
+                                unlike.innerText = "Unlike";
+                            })
+                    } else {
+                        fetch(`/liking/${likedPost}`, {
+                            method: 'PUT',
+                            body: JSON.stringify({
+                                like: false
+                            })
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                        // unlike.style.display = data.isliked ? "inline-block" : "none";
+                                likeCount.innerHTML = `<i class="fas fa-thumbs-up"></i> ${data.liked}`;
+                                unlike.innerText = "Like";
+                            })
+                    }
+                });
+            })
+        </script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const editButton = document.querySelector('#editbtn-{{ post.id }}');
+                const saveButton = document.querySelector('#savebtn-{{ post.id }}');
+                const postPre = document.querySelector('#pstpre-{{ post.id }}');
+                const postId = document.querySelector('#in-{{ post.id }}').value;
+
+
+                if (editButton) {
+
+                    editButton.addEventListener('click', function() {
+                        postPre.contentEditable = true;
+                        postPre.style.padding = '10px';
+                        postPre.focus();
+                        editButton.style.display = 'none';
+                        saveButton.style.display = 'inline-block';
+                    });
+
+                    saveButton.addEventListener('click', function() {
+                        postPre.contentEditable = false;
+                        postPre.style.padding = '0px';
+                        editButton.style.display = 'inline-block';
+                        saveButton.style.display = 'none';
+                // Add your save functionality here, e.g., make an AJAX call to save the post
+                        fetch(`/edit/${postId}`, {
+                            method: 'PUT',
+                            body: JSON.stringify({
+                                edited: postPre.innerText
+                            })
+                        })
+
+                    });
+                }
+            });
+        </script>
+
+    {% empty %}
+        <div class="empty">No posts yet.</div>
+    {% endfor %}
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination d-flex justify-content-center">
+            {% if paginPost.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page={{ paginPost.previous_page_number }}">Previous</a></li>
+            {% endif %}
+            {% if paginPost.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ paginPost.next_page_number }}">Next</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'network/script.js' %}"></script>
+{% endblock %}
