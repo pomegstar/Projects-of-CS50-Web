@@ -1,0 +1,44 @@
+{% extends "appointments/layout.html" %}
+
+{% block body %}
+    <h2>{% if pending %}
+        {{ pending }} appointments:
+        </h2>
+    {% else %}
+        All appointments:</h2>
+    {% endif %}
+        {% for fpt in appointments %}
+            <div class="hos">
+                <h5>Doctor Name: {{ fpt.doctor.user.username }}</h5>
+                <p><b>Treatment:</b> {% if fpt.is_complete %}
+                    Completed</p>
+                    <b>Age: {{ fpt.age }}</b>
+                    <b>Problem: {{ fpt.problem }}</b>
+                    <P><b>Treatment Date:</b> {{ fpt.treatment_date }}</P>
+                    <p><b>Appointed on:</b> {{ fpt.appointment_time }} </p>
+                {% else %}
+                    Pending...</p>
+                    <b>Serial Number: {{ fpt.serial_number }}</b>
+                    <b>Age: {{ fpt.age }}</b>
+                    <b>Problem: {{ fpt.problem }}</b>
+                    <P><b>Treatment Date:</b> {{ fpt.treatment_date }}</P>
+                    <p><b>Appointed on:</b> {{ fpt.appointment_time }} </p>
+                    <form method="post" action="{% url 'appointments:del_ap' fpt.id %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="pat" value="Patient">
+                        <input type="hidden" name="my_all_ap" value="True">
+                        {% if pending %}
+                            <input type="hidden" name="pending" value="True">
+                        {% else %}
+                            <input type="hidden" name="pending" value="False">
+                        {% endif %}
+                        <input type="hidden" name="dr_id" value="{{ fpt.doctor.user.id }}">
+                        <button type="submit" class="btn btn-danger" id="bt-{{ fpt.id }}">Cancel Appointment</button>
+                    </form>
+                {% endif %}
+                </div>
+        {% empty %}
+            <p>No appointments yet...</p>
+        {% endfor %}
+
+{% endblock %}
