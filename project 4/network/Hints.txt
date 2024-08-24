@@ -1,1 +1,1 @@
-If there any problem to deploy this project, make sure to change the directory name into "project4".
+If there any problem to deploy this project, make sure to rename the directory "network" into "project4".
