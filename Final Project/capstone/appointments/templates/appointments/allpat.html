@@ -1,0 +1,34 @@
+{% extends "appointments/layout.html" %}
+
+{% block body %}
+
+    <h2>All patients:</h2>
+    {% for fpt in appointments %}
+        <div class="hos">
+            <h5>Patient Name: {{ fpt.patient.user.username }}</h5>
+            <p><b>Treatment:</b> {% if fpt.is_complete %}
+                Completed</p>
+                <b>Age: {{ fpt.age }}</b>
+                <b>Problem: {{ fpt.problem }}</b>
+                <P><b>Treatment Date:</b> {{ fpt.treatment_date }}</P>
+                <p><b>Appointed on:</b> {{ fpt.appointment_time }} </p>
+            {% else %}
+                Pending...</p>
+                <b>Serial Number: {{ fpt.serial_number }}</b>
+                <b>Age: {{ fpt.age }}</b>
+                <b>Problem: {{ fpt.problem }}</b>
+                <P><b>Treatment Date:</b> {{ fpt.treatment_date }}</P>
+                <p><b>Appointed on:</b> {{ fpt.appointment_time }} </p>
+                <form method="post" action="{% url 'appointments:del_ap' fpt.id %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="doc" value="Doctor">
+                    <input type="hidden" name="allpat" value="True">
+                    <button type="submit" class="btn btn-primary" id="bt-{{ fpt.id }}">Complete</button>
+                </form>
+            {% endif %}
+            </div>
+    {% empty %}
+        <p>No patients yet...</p>
+    {% endfor %}
+
+{% endblock %}
