@@ -1,5 +1,5 @@
 # Project Specifications 
-https://cs50.harvard.edu/web/2020/projects/1/wiki/#specification
+https://cs50.harvard.edu/web/2020/projects/4/network/#specification
 
 ## Running the Application
 
