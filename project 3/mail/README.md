@@ -1,6 +1,9 @@
 # Project Specifications 
 https://cs50.harvard.edu/web/2020/projects/3/mail/#specification
 
+## Video Demo: 
+https://youtu.be/S3TJUfObHwE?si=Wf3Li2mY_FHH_Ln_
+
 ## Running the Application
 
 1. **Install Dependencies**: Run `pip install -r requirements.txt` to install the necessary Python packages.
