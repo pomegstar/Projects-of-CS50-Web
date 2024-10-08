@@ -1,6 +1,9 @@
 # Project Specifications 
 https://cs50.harvard.edu/web/2020/projects/1/wiki/#specification
 
+## Video Demo: 
+https://youtu.be/FAyeDQlsVzA?si=uc-jbgOGBoB3RnS0
+
 ## Running the Application
 
 1. **Install Dependencies**: Run `pip install -r requirements.txt` to install the necessary Python packages.
