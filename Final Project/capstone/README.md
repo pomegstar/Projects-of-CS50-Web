@@ -4,6 +4,9 @@
 
 The **MediBook** is a web application designed to facilitate the booking of doctor appointments for patients across multiple hospitals as well as to manage patients' serial number by the doctor. It utilizes Django on the back-end and JavaScript on the front-end. This platform enables patients to book appointments with doctors based on their availability, manage appointment schedules, and receive real-time notifications regarding their appointments. The system is designed with a user-friendly interface and ensures a seamless experience for both patients and doctors.
 
+## Viedo Demonstration Link: 
+https://youtu.be/FUZf6e-wE1Q?si=RbcH35aIuaEydRvR
+
 ## Distinctiveness and Complexity
 
 ### Distinctiveness
@@ -128,7 +131,5 @@ It handles the booking of appointments, real-time updates of appointment status,
 - **Redis Configuration**: The project relies heavily on Redis for real-time notifications. Make sure Redis is correctly configured and running on your server.
 
 - **WebSockets**: The application uses Django Channels to handle WebSocket connections. Ensure that your Django project is configured to use ASGI instead of WSGI for WebSocket support.
-
-- **Viedo Demonstration Link**: https://youtu.be/FUZf6e-wE1Q?si=RbcH35aIuaEydRvR
 
 This project is designed to handle a complex appointment booking system with real-time updates, making it both unique and challenging compared to standard Django applications.
