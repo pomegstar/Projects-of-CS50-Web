@@ -1,6 +1,9 @@
 # Project Specifications 
 https://cs50.harvard.edu/web/2020/projects/2/commerce/#specification
 
+## Video Demo: 
+https://youtu.be/Cqda-HP_lmo?si=p5UGnZEfjqyP_8sd
+
 ## Running the Application
 
 1. **Install Dependencies**: Run `pip install -r requirements.txt` to install the necessary Python packages.
